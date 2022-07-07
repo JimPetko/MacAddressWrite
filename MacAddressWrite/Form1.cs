@@ -13,6 +13,18 @@ using Renci.SshNet;
 using Renci.SshNet.Common;
 using System.Threading;
 
+/// <summary>
+/// For demo purposes, there is a Raspberry Pi Zero connected through a UART adapter ()
+/// 
+/// </summary>
+
+
+
+
+
+
+
+
 namespace MacAddressWrite
 {
     public partial class Form1 : Form
@@ -21,6 +33,7 @@ namespace MacAddressWrite
         string uid, password, database, server, connectionstring;
         bool sqlConnected = false;
         bool serialConnected = false;
+        bool serialMonitorOn = false;
         private SerialPort serialPort = new SerialPort();
         
         
@@ -114,7 +127,10 @@ namespace MacAddressWrite
                 }
                 catch
                 {
-
+                    serialConnected = false;
+                    StatusLabel_SerialConnection.Text = "Serial Error, Try Again";
+                    StatusLabel_SerialConnection.ForeColor = Color.Red;
+                    btn_SerialConnect.Text = "Connect Serial";
                 }
 
             }
@@ -137,8 +153,9 @@ namespace MacAddressWrite
         {
             if (serialPort.IsOpen)
             {
-                StartUART_Sync();
-                Update_Table_OnSuccess();
+                if(StartUART_Sync())
+                    Update_Table_OnSuccess();
+                
                 GetMacAddress();
             }
         }
@@ -147,17 +164,47 @@ namespace MacAddressWrite
         /// For now the user and password are hard coded, if these are needed to be input from the user, it can be gathered by a TextBox or 2.
         /// This application currently will only function on a Raspberry Pi with UART enabled and connected.
         /// </summary>
-        private void StartUART_Sync() 
+        private bool StartUART_Sync() 
         {
-            string user = "pi\r\n";
-            string password = "raspberry\r\n";
-            string cmd = "sudo apt-get -y update && sudo apt-get -y upgrade && sudo shutdown -now\r\n"; //this will just bring the raspberry pi up to date.
+            // \n is the return char escape in c#
+            string user = "jpetko\n";
+            string password = "123reallyComplicatedPassword\n";// Credientials hard coded is bad prac but its only for demonstration purposes.
+
+            string cmd = "MacAddressDemo.txt <<< \""+ lab_MacAddress.Text +"\"\n"; 
+            //while better to parse the MacAddress write into bytes,
+            //when going over UART to a linux kernel, a string is easier.
             serialPort.Write(user);
             Thread.Sleep(5000);
             serialPort.Write(password);
             Thread.Sleep(5000);
             serialPort.Write(cmd);
-            Thread.Sleep(5000);
+
+            if(serialPort.ReadLine()=="") 
+            {
+                Console.WriteLine("Success");
+                return true;
+            }
+            else
+                return false;
+        }
+
+        private void btn_SerialMonitor_Click(object sender, EventArgs e)
+        {
+            if (!serialMonitorOn && serialPort.IsOpen)
+            {
+                btn_SerialMonitor.Text = "Serial Monitor <<";
+                this.Size = new System.Drawing.Size(895, 345);
+                bwrk_Monitor.RunWorkerAsync();
+            }
+            else 
+            {
+                this.Size = new Size(465, 345);
+            }
+        }
+
+        private void bwrk_Monitor_DoWork(object sender, DoWorkEventArgs e)
+        {
+            rtb_SerialContent.Text += serialPort.ReadLine();
         }
 
 

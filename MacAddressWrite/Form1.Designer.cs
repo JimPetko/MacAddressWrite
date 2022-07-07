@@ -47,10 +47,15 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lab_MacAddress = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btn_SerialMonitor = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.rtb_SerialContent = new System.Windows.Forms.RichTextBox();
+            this.bwrk_Monitor = new System.ComponentModel.BackgroundWorker();
             this.pan_Connect.SuspendLayout();
             this.pan_Serial.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbx_UserName
@@ -163,9 +168,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel_DatabaseConnection,
             this.StatusLabel_SerialConnection});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 282);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 284);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(452, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(449, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -203,7 +208,7 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(13, 162);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(430, 70);
+            this.panel1.Size = new System.Drawing.Size(232, 70);
             this.panel1.TabIndex = 7;
             // 
             // lab_MacAddress
@@ -225,11 +230,43 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Next Available MAC Address:";
             // 
+            // btn_SerialMonitor
+            // 
+            this.btn_SerialMonitor.Location = new System.Drawing.Point(342, 166);
+            this.btn_SerialMonitor.Name = "btn_SerialMonitor";
+            this.btn_SerialMonitor.Size = new System.Drawing.Size(98, 23);
+            this.btn_SerialMonitor.TabIndex = 8;
+            this.btn_SerialMonitor.Text = "Serial Monitor >>";
+            this.btn_SerialMonitor.UseVisualStyleBackColor = true;
+            this.btn_SerialMonitor.Click += new System.EventHandler(this.btn_SerialMonitor_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.rtb_SerialContent);
+            this.panel2.Location = new System.Drawing.Point(450, 12);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(417, 249);
+            this.panel2.TabIndex = 9;
+            // 
+            // rtb_SerialContent
+            // 
+            this.rtb_SerialContent.Location = new System.Drawing.Point(3, 3);
+            this.rtb_SerialContent.Name = "rtb_SerialContent";
+            this.rtb_SerialContent.Size = new System.Drawing.Size(411, 243);
+            this.rtb_SerialContent.TabIndex = 0;
+            this.rtb_SerialContent.Text = "";
+            // 
+            // bwrk_Monitor
+            // 
+            this.bwrk_Monitor.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwrk_Monitor_DoWork);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(452, 304);
+            this.ClientSize = new System.Drawing.Size(449, 306);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.btn_SerialMonitor);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_WriteToEEPROM);
             this.Controls.Add(this.statusStrip1);
@@ -248,6 +285,7 @@
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,6 +311,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbx_BaudRate;
+        private System.Windows.Forms.Button btn_SerialMonitor;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RichTextBox rtb_SerialContent;
+        private System.ComponentModel.BackgroundWorker bwrk_Monitor;
     }
 }
 

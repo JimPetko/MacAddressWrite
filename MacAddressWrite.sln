@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MacAddressWrite", "MacAddressWrite\MacAddressWrite.csproj", "{594D91EF-CBC3-4FE4-81F1-3A91C5B5EE9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Create_MacAddress_DB", "..\Create_MacAddress_DB\Create_MacAddress_DB\Create_MacAddress_DB.csproj", "{E515F8DD-D570-4E98-B415-326332D6CF28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Create_MacAddress_DB", "Create_MacAddress_DB\Create_MacAddress_DB.csproj", "{E515F8DD-D570-4E98-B415-326332D6CF28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

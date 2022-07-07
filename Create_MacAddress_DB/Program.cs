@@ -84,7 +84,7 @@ namespace Create_MacAddress_DB
             string server = "localhost";
             string database = "mac_addresses";
             string uid = "jpetko";
-            string password = "philo74";
+            string password = "123reallyComplicatedPassword";
             string connectionString = "SERVER=" + server + "; DATABASE=" + database + "; UID=" + uid + "; PASSWORD=" + password + ";";
             Connection = new MySqlConnection(connectionString);
             List<string> MacAddresses = new List<string>();
